@@ -1,4 +1,4 @@
-import QuestionRepository from "./question.repository";
+import QuestionRepository from "./question.repository.js";
 
 class QuestionService {
   questionRepository = new QuestionRepository();
@@ -47,6 +47,12 @@ class QuestionService {
           err.name = "IncorrectData";
           throw err;
         }
+        break;
+      default:
+        const err = new Error("Unrecognised type");
+
+        err.name = "IncorredData";
+        throw err;
     }
   }
 

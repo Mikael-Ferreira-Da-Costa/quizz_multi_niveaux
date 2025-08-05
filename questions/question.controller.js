@@ -1,4 +1,4 @@
-import QuestionService from "./question.service";
+import QuestionService from "./question.service.js";
 
 class QuestionController {
   questionService = new QuestionService();
@@ -12,9 +12,7 @@ class QuestionController {
         subject,
         answer,
       });
-      res
-        .status(201)
-        .json({ message: "Question created !"});
+      res.status(201).json({ message: "Question created !" });
     } catch (err) {
       console.error(err);
 

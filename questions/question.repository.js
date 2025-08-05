@@ -1,4 +1,4 @@
-import Question from "./question.model";
+import Question from "./question.model.js";
 
 class QuestionRepository {
   async saveQuestion({ type, subject, answer }) {
