@@ -4,6 +4,8 @@ import { Router } from "express";
 const router = Router();
 const questionController = new QuestionController();
 
-router.post("/createQuestion/", questionController.createQuestion);
+router.post("/", (req, res, next) => {
+  questionController.createQuestion(req, res, next);
+});
 
 export default router;
