@@ -29,6 +29,10 @@ const questionSchema = new mongoose.Schema({
     },
     required: true,
   },
+  quizz: {
+    type: Schema.Types.ObjectId,
+    ref: 'Quizz',
+  }
 });
 
 const Question = mongoose.model("Question", questionSchema);
