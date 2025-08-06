@@ -7,7 +7,7 @@ class QuizzController {
       const savedQuizz = await createQuizz(req.body);
       res.status(201).json({
         message: "Quizz created successfully",
-        data: savedQuizz
+        data: savedQuizz,
       });
     } catch (error) {
       console.error(error);
@@ -36,18 +36,11 @@ class QuizzController {
       next(error);
     }
   }
-  async addQuestionToQuizz(req, res, next) {
-    try {
-      const { quizzId, questionId } = req.body;
-      const updatedQuizz = await quizzRepository.addQuestionToQuizz(quizzId, questionId);
-      res.status(200).json({
-        message: "Question added to quizz successfully",
-        data: updatedQuizz
-      });
-    } catch (error) {
-      console.error(error);
-      next(error);
-    }
+  async addQuestionToQuizz(quizzId, questionId) {
+    const updatedQuizz = await quizzRepository.addQuestionToQuizz(
+      quizzId,
+      questionId
+    );
   }
 }
 

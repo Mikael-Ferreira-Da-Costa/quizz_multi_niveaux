@@ -10,9 +10,9 @@ class QuizzRepository {
     }
 
     async findAll() {
-        return await Quizz.find()//.populate('questions');
+        return await Quizz.find().populate('questions');
     }
-    async addQuestionToQuizz(){
+    async addQuestionToQuizz(quizzId, questionId){
         return await Quizz.findByIdAndUpdate(
             quizzId, 
             { $push: { questions: questionId } }, 

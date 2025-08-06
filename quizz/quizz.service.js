@@ -1,7 +1,6 @@
 import quizzRepository from './quizz.repository.js';
 
 export const createQuizz = async (quizzData) => {
-
     if (!quizzData.title) {
         throw new Error('Title is required');
     } else if (!quizzData.description) {

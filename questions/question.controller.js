@@ -4,15 +4,8 @@ class QuestionController {
   questionService = new QuestionService();
 
   async createQuestion(req, res, next) {
-    const { type, subject, answer, quizzId } = req.body;
-
     try {
-      await this.questionService.createQuestion({
-        type,
-        subject,
-        answer,
-        quizzId
-      });
+      await this.questionService.createQuestion(req.body);
       res.status(201).json({ message: "Question created !" });
     } catch (err) {
       console.error(err);
