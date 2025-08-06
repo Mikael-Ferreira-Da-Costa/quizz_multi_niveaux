@@ -36,6 +36,19 @@ class QuizzController {
       next(error);
     }
   }
+  async addQuestionToQuizz(req, res, next) {
+    try {
+      const { quizzId, questionId } = req.body;
+      const updatedQuizz = await quizzRepository.addQuestionToQuizz(quizzId, questionId);
+      res.status(200).json({
+        message: "Question added to quizz successfully",
+        data: updatedQuizz
+      });
+    } catch (error) {
+      console.error(error);
+      next(error);
+    }
+  }
 }
 
 export default QuizzController;

@@ -12,6 +12,13 @@ class QuizzRepository {
     async findAll() {
         return await Quizz.find()//.populate('questions');
     }
+    async addQuestionToQuizz(){
+        return await Quizz.findByIdAndUpdate(
+            quizzId, 
+            { $push: { questions: questionId } }, 
+            { new: true }
+        ).populate('questions');
+    }
 }
 
 export default new QuizzRepository();
