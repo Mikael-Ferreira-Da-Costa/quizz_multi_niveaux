@@ -10,7 +10,7 @@ class QuizzRepository {
     }
 
     async findAll() {
-        return await Quizz.find().populate('questions');
+        return await Quizz.find()//.populate('questions');
     }
 }
 
