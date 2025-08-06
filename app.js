@@ -1,11 +1,14 @@
 import express from "express";
 import connectDB from "./config/db.js";
 import dotenv from "dotenv";
+import quizzRoutes from "./routes/quizz.route.js";
+
 dotenv.config();
 
 const app = express();
 
 app.use(express.json());
+app.use('/quizz', quizzRoutes);
 
 connectDB();
 app.listen(process.env.PORT, () => {
