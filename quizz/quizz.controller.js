@@ -4,7 +4,6 @@ import quizzRepository from "./quizz.repository.js";
 class QuizzController {
   async createQuizz(req, res, next) {
     try {
-        
       const savedQuizz = await createQuizz(req.body);
       res.status(201).json({
         message: "Quizz created successfully",
