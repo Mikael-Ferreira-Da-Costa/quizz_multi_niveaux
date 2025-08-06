@@ -1,6 +1,6 @@
 import express from "express";
 import userController from "../users/user.controller.js";
-import authentification from "../middleware/authentification.js";
+import authentification from "../middlewares/authentification.js";
 const router = express.Router();
 
 router.post("/", (req, res, next) => userController.register(req, res, next));

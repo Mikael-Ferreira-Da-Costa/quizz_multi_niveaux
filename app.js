@@ -2,8 +2,8 @@ import dotenv from "dotenv";
 import express from "express";
 import cookieParser from "cookie-parser";
 import userRoute from "./routes/user.route.js";
-import connectDB from "./config/mongoDB.js";
-import errorHandler from "./middleware/handling.errors.js";
+import connectDB from "./config/db.js";
+import errorHandler from "./middlewares/handling.errors.js";
 
 dotenv.config();
 
