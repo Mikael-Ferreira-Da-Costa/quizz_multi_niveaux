@@ -4,8 +4,8 @@ import QuizzController from '../quizz/quizz.controller.js';
 const router = express.Router();
 const quizzController = new QuizzController();
 
-router.post('/createQuizz', quizzController.createQuizz);           
-router.get('/findQuizz', quizzController.findAllQuizzes);         
+router.post('/', quizzController.createQuizz);           
+router.get('/find', quizzController.findAllQuizzes);         
 router.get('/:id', quizzController.findQuizz);           
 
 export default router;
