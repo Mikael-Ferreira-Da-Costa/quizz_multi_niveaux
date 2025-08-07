@@ -8,13 +8,20 @@ class QuestionService {
 
   async createQuestion(params) {
     const result = questionValidationSchema.validate(params);
-  
-    if (result.error)
-      throw result.error;
+
+    if (result.error) throw result.error;
 
     const questionId = await this.questionRepository.saveQuestion(params);
 
     await this.quizzController.addQuestionToQuizz(params.quizzId, questionId);
+  }
+
+  async deleteQuestions(quizzId) {
+    await this.questionRepository.deleteQuestionsFromQuizz(quizzId);
+  }
+
+  async deleteQuestion(id) {
+    await this.questionRepository.deleteQuestion(id);
   }
 }
 
