@@ -1,18 +1,23 @@
-import quizzRepository from './quizz.repository.js';
+import quizzRepository from "./quizz.repository.js";
+import quizzValidationSchema from "./quizz.utils.js";
 
-export const createQuizz = async (quizzData) => {
-    if (!quizzData.title) {
-        throw new Error('Title is required');
-    } else if (!quizzData.description) {
-        throw new Error('Description is required');
-    }
+class QuizzService {
+  async createQuizz(quizzData) {
+    const result = quizzValidationSchema.validate(quizzData);
 
-    if (!quizzData.tags) {
-        throw new Error('Tags are required');
-    }
-    if (!quizzData.difficulty) {
-        throw new Error('Difficulty is required');
-    }
-    
+    if (result.error) throw result.error;
+
     return await quizzRepository.create(quizzData);
-};
+  }
+  async addQuestionToQuizz(quizzId, questionId) {
+    await quizzRepository.addQuestionToQuizz(
+      quizzId,
+      questionId
+    );
+  }
+  async deleteQuestionFromQuizz(params) {
+    await quizzRepository.deleteQuestionFromQuizz(params);
+  }
+}
+
+export default QuizzService;
