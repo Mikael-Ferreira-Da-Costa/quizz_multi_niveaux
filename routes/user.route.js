@@ -14,5 +14,8 @@ router.post("/logout", (req, res) => userController.logOutUser(req, res));
 router.put("/", authentification, (req, res) => {
   userController.updateUser(req, res);
 });
+router.get("/:id", (req, res, next) =>
+  userController.getUserById(req, res, next)
+);
 
 export default router;

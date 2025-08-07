@@ -1,6 +1,10 @@
 import User from "./user.model.js";
 
 class UserRepository {
+  async getUserById(id) {
+    return await User.findById(id);
+  }
+
   async findUserByEmail(email) {
     return User.findOne({ email: email });
   }
