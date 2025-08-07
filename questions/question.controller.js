@@ -13,6 +13,17 @@ class QuestionController {
       next(err);
     }
   }
+
+  async deleteQuestion(req, res, next) {
+    try {
+      await this.questionService.deleteQuestion(req.params.id);
+      res.status(201).json({ message: "Question deleted !" });
+    } catch (err) {
+      console.error(err);
+
+      next(err);
+    }
+  }
 }
 
 export default QuestionController;
