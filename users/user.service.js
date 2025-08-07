@@ -7,6 +7,22 @@ class UserService {
   constructor(userRepository) {
     this.userRepository = userRepository;
   }
+
+  async getUserById(id) {
+    try {
+      const user = await this.userRepository.getUserById(id);
+      if (!user) {
+        throw new UserNotFoundError();
+      }
+      return user;
+    } catch (err) {
+      if (err.name === "CastError") {
+        throw new UserGetByIdError("Invalid user ID format");
+      }
+      throw err;
+    }
+  }
+
   async findUserByEmail(email) {
     return await this.userRepository.findUserByEmail(email);
   }

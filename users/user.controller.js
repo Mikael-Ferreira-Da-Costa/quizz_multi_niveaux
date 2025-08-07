@@ -5,6 +5,20 @@ class UserController {
     this.userService = userService;
   }
 
+  async getUserById(req, res, next) {
+    try {
+      const { id } = req.params;
+      const user = await this.userService.getUserById(id);
+      if (!user) {
+        throw new Error("err");
+      }
+      res.status(200).json(user);
+    } catch (err) {
+      console.log(err);
+      next(err);
+    }
+  }
+
   async register(req, res, next) {
     const { username, email, password } = req.body;
     try {
