@@ -1,6 +1,5 @@
 const errorHandler = (err, req, res, next) => {
-  console.log("Middleware error object:", err);
-  console.log("Name:", err.name, "Status:", err.statusCode, "Message:", err.message);
+  console.error("Error occurred:", err);
 
   const status = err.statusCode || 500;
   res.status(status).json({

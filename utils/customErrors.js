@@ -41,6 +41,14 @@ class UnexpectedError extends Error {
   }
 }
 
+class QuizzNotFoundError extends Error {
+  constructor(message = "Quizz not found") {
+    super(message);
+    this.name = "QuizzNotFound";
+    this.statusCode = 404;
+  }
+}
+
 function parseError(error) {
   if (error.isJoi || error instanceof JoiValidationError) {
     const details =
@@ -62,16 +70,16 @@ function parseError(error) {
   }
 
   if (error instanceof Error) {
-    switch (error.name) {
-      case "UserNotFound":
-        return new UserNotFoundError(error.message);
-      case "UserAlreadyExist":
-        return new UserAlreadyExistError(error.message);
-      case "IncorrectData":
-        return new IncorrectDataError(error.message);
-      case "ArgumentRequired":
-        return new ArgumentRequiredError(error.message);
-    }
+    const customErrors = [
+      "UserNotFound",
+      "UserAlreadyExist",
+      "IncorrectData",
+      "ArgumentRequired",
+      "QuizzNotFound",
+    ];
+
+    if (customErrors.includes(error.name))
+      return error;
   }
 
   if (error.statusCode) return error;
@@ -85,5 +93,6 @@ export {
   UserNotFoundError,
   UserAlreadyExistError,
   UnexpectedError,
+  QuizzNotFoundError,
   parseError,
 };

@@ -1,5 +1,6 @@
 import Quizz from "./quizz.model.js";
 import QuestionService from "../questions/question.service.js";
+import { QuizzNotFoundError } from "../utils/customErrors.js";
 
 class QuizzRepository {
   async create(quizzData) {
@@ -13,11 +14,13 @@ class QuizzRepository {
     return await Quizz.find().populate("questions");
   }
   async addQuestionToQuizz(quizzId, questionId) {
-    return await Quizz.findByIdAndUpdate(
+    const updated =  await Quizz.findByIdAndUpdate(
       quizzId,
       { $push: { questions: questionId } },
       { new: true }
     ).populate("questions");
+    if (!updated)
+      throw new QuizzNotFoundError();
   }
   async deleteQuestionFromQuizz({ questionId, quizzId }) {
     return await Quizz.findByIdAndUpdate(quizzId, {
