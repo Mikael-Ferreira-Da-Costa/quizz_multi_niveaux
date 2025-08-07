@@ -7,5 +7,5 @@ const quizzController = new QuizzController();
 router.post('/', quizzController.createQuizz);           
 router.get('/find', quizzController.findAllQuizzes);         
 router.get('/:id', quizzController.findQuizz);           
-
+router.delete("/:id", quizzController.deleteQuizz);
 export default router;

@@ -18,6 +18,9 @@ class QuizzRepository {
             { new: true }
         ).populate('questions');
     }
+    async deleteById(id){
+        return await Quizz.findByIdAndDelete(id);
+    }
 }
 
 export default new QuizzRepository();

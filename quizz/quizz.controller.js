@@ -42,6 +42,14 @@ class QuizzController {
       questionId
     );
   }
+  async deleteQuizz(req ,res){
+    try{
+    const deletedQuizz = await quizzRepository.deleteById(req.params.id);
+    res.status(200).json({message: "Quizz deleted succesfully", data: req.params.id});
+    }catch(error){
+      console.error(error)
+    }
+  }
 }
 
 export default QuizzController;
