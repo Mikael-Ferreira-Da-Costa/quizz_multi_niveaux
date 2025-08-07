@@ -6,7 +6,6 @@ export const createQuizz = async (quizzData) => {
     } else if (!quizzData.description) {
         throw new Error('Description is required');
     }
-
     if (!quizzData.tags) {
         throw new Error('Tags are required');
     }

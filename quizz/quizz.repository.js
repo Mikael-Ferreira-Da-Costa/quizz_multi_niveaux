@@ -8,7 +8,6 @@ class QuizzRepository {
     async findById(id) {
         return await Quizz.findById(id).populate('questions');
     }
-
     async findAll() {
         return await Quizz.find().populate('questions');
     }
