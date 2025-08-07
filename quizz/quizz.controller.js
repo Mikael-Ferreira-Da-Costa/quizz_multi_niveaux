@@ -1,10 +1,12 @@
-import { createQuizz } from "./quizz.service.js";
+import QuizzService from "./quizz.service.js";
 import quizzRepository from "./quizz.repository.js";
 
 class QuizzController {
+  quizzService = new QuizzService();
+
   async createQuizz(req, res, next) {
     try {
-      const savedQuizz = await createQuizz(req.body);
+      const savedQuizz = await this.quizzService.createQuizz(req.body);
       res.status(201).json({
         message: "Quizz created successfully",
         data: savedQuizz,
@@ -35,12 +37,6 @@ class QuizzController {
       console.error(error);
       //next(error);
     }
-  }
-  async addQuestionToQuizz(quizzId, questionId) {
-    const updatedQuizz = await quizzRepository.addQuestionToQuizz(
-      quizzId,
-      questionId
-    );
   }
   async deleteQuizz(req ,res){
     try{
