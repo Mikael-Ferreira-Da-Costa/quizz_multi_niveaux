@@ -6,7 +6,6 @@ import {
   IncorrectDataError,
   UserNotFoundError,
   UserAlreadyExistError,
-  UnexpectedError,
 } from "../utils/customErrors.js";
 
 class UserService {
