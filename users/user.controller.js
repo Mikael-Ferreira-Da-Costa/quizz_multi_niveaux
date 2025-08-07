@@ -13,9 +13,11 @@ class UserController {
         email,
         password,
       });
+      const userId = newUser._id.toString();
+
       res
         .status(201)
-        .json({ message: "User Create !", username: newUser.username });
+        .json({ message: "User Create !", username: newUser.username, userId });
     } catch (err) {
       console.log(err);
 

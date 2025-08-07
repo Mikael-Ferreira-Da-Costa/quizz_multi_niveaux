@@ -1,5 +1,5 @@
 const errorHandler = (err, req, res, next) => {
-  console.error("Error occured:", err.name);
+  console.error("Error occured:", err.message);
   switch (err.name) {
     case "ArgumentRequired":
       return res.status(400).json({ message: "Missing Data required" });

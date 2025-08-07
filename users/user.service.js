@@ -1,6 +1,7 @@
 import UserRepository from "./user.repository.js";
 import argon2 from "argon2";
 import jwt from "jsonwebtoken";
+import ArgumentRequiredException from "../middlewares/argument.required.exception.js";
 
 class UserService {
   constructor(userRepository) {
@@ -22,11 +23,12 @@ class UserService {
       const hashPassword = await argon2.hash(password, {
         type: argon2.argon2id,
       });
-      const newUser = this.userRepository.register({
+      const newUser = await this.userRepository.register({
         username,
         email,
         password: hashPassword,
       });
+
       return newUser;
     } catch (err) {
       throw new Error(err.message);
@@ -35,7 +37,7 @@ class UserService {
 
   async logInUser({ email, password }) {
     if (!email || !password) {
-      throw new Error("ArgumentRequired");
+      throw new ArgumentRequiredException("missing email or password");
     }
     try {
       const user = await this.findUserByEmail(email);
