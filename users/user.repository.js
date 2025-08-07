@@ -1,4 +1,8 @@
 import User from "./user.model.js";
+import {
+  userValidationSchema,
+  userUpdateValidationSchema,
+} from "./user.utils.js";
 
 class UserRepository {
   async getUserById(id) {
@@ -10,22 +14,20 @@ class UserRepository {
   }
 
   async register({ username, email, password }) {
-    try {
-      const newUser = new User({ username, email, password });
-      await newUser.save();
-      return newUser;
-    } catch (err) {
-      console.error(err);
-      throw new Error("Error creating user", err);
-    }
+    const result = userValidationSchema.validate({ username, email, password });
+
+    if (result.error) throw result.error;
+
+    const newUser = new User({ username, email, password });
+    await newUser.save();
+    return newUser;
   }
 
   async updateUser(id, update) {
-    try {
-      return await User.findByIdAndUpdate(id, { $set: update }, { new: true });
-    } catch (err) {
-      throw new Error("Error ", err);
-    }
+    const result = userUpdateValidationSchema.validate(update);
+
+    if (result.error) throw result.error;
+    return await User.findByIdAndUpdate(id, { $set: update }, { new: true });
   }
 }
 

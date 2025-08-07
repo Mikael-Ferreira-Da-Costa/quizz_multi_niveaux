@@ -1,5 +1,6 @@
 import QuizzService from "./quizz.service.js";
 import quizzRepository from "./quizz.repository.js";
+import { parseError } from "../utils/customErrors.js";
 
 class QuizzController {
   quizzService = new QuizzService();
@@ -12,9 +13,7 @@ class QuizzController {
         data: savedQuizz,
       });
     } catch (error) {
-      console.error(error);
-      res.status(400).json({ error: error.message });
-      //next(error);
+      next(parseError(error));
     }
   }
   async findQuizz(req, res, next) {
@@ -25,8 +24,7 @@ class QuizzController {
       }
       res.status(200).json({ message: "Quizz found successfully", data: findedQuizz });
     } catch (error) {
-      console.error(error);
-      //next(error);
+      next(parseError(error));
     }
   }
   async findAllQuizzes(req, res, next) {
@@ -34,16 +32,15 @@ class QuizzController {
       const allQuizzes = await quizzRepository.findAll();
       res.status(200).json(allQuizzes);
     } catch (error) {
-      console.error(error);
-      //next(error);
+      next(parseError(error));
     }
   }
-  async deleteQuizz(req ,res){
+  async deleteQuizz(req ,res, next){
     try{
-    const deletedQuizz = await quizzRepository.deleteById(req.params.id);
+    await quizzRepository.deleteById(req.params.id);
     res.status(200).json({message: "Quizz deleted succesfully", data: req.params.id});
     }catch(error){
-      console.error(error)
+      next(parseError(error));
     }
   }
 }

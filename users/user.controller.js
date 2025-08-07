@@ -1,4 +1,5 @@
 import UserService from "./user.service.js";
+import { UserNotFoundError, parseError } from "../utils/customErrors.js";
 
 class UserController {
   constructor(userService) {
@@ -10,12 +11,11 @@ class UserController {
       const { id } = req.params;
       const user = await this.userService.getUserById(id);
       if (!user) {
-        throw new Error("err");
+        throw new UserNotFoundError();
       }
       res.status(200).json(user);
     } catch (err) {
-      console.log(err);
-      next(err);
+      next(parseError(err));
     }
   }
 
@@ -33,9 +33,7 @@ class UserController {
         .status(201)
         .json({ message: "User Create !", username: newUser.username, userId });
     } catch (err) {
-      console.log(err);
-
-      next(err);
+      next(parseError(err));
     }
   }
 
@@ -54,7 +52,7 @@ class UserController {
       });
       res.status(200).json({ message: "Login success : ", user });
     } catch (err) {
-      next(err);
+      next(parseError(err));
     }
   }
 
@@ -72,11 +70,11 @@ class UserController {
       });
       res.status(200).json({ message: "Logout successful" });
     } catch (err) {
-      res.status(500).json(err);
+      next(parseError(err));
     }
   }
 
-  async updateUser(req, res) {
+  async updateUser(req, res, next) {
     const id = req.body._id;
     const update = req.body;
 
@@ -101,7 +99,7 @@ class UserController {
         .status(200)
         .json({ username: updatedUser.username, email: updatedUser.email });
     } catch (err) {
-      res.status(500).json({ message: err.message });
+      next(parseError(err));
     }
   }
 }
